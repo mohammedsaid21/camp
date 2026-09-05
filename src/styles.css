@@ -1,0 +1,211 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * Athar — living olive greens, warm orange donate.
+ * Inspired by field humanitarian platforms: fresh, human, not muddy forest.
+ */
+
+@theme inline {
+  --radius-sm: 0.5rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.25rem;
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-ivory: var(--ivory);
+  --color-charcoal: var(--charcoal);
+  --color-gold: var(--gold);
+  --color-ember: var(--ember);
+  --color-forest: var(--forest);
+  --color-forest-foreground: var(--forest-foreground);
+  --color-leaf: var(--leaf);
+
+  --font-display: "IBM Plex Sans Arabic", Tahoma, sans-serif;
+  --font-sans: "IBM Plex Sans Arabic", Tahoma, sans-serif;
+  --font-verse: "Amiri", "Noto Naskh Arabic", "Traditional Arabic", serif;
+}
+
+:root {
+  --radius: 0.9rem;
+
+  --background: #f5faf6;
+  --ivory: #eaf5ec;
+  --foreground: #143528;
+  --charcoal: #143528;
+  --forest: #0f3d2e;
+  --forest-foreground: #f5faf6;
+  --leaf: #2f9e63;
+  --surface: #eaf5ec;
+  --surface-2: #d8eadc;
+  --card: #ffffff;
+  --card-foreground: #143528;
+  --popover: #ffffff;
+  --popover-foreground: #143528;
+
+  --primary: #1b7a4a;
+  --primary-foreground: #ffffff;
+  --accent: #f26b21;
+  --accent-foreground: #fffaf6;
+  --gold: #f26b21;
+  --ember: #d45212;
+
+  --secondary: #e3f0e6;
+  --secondary-foreground: #143528;
+  --muted: #e3f0e6;
+  --muted-foreground: #4b6256;
+
+  --destructive: #b42318;
+  --destructive-foreground: #fff;
+  --border: #cfe3d4;
+  --input: #cfe3d4;
+  --ring: #2f9e63;
+
+  --chart-1: #1b7a4a;
+  --chart-2: #f26b21;
+  --chart-3: #2f9e63;
+  --chart-4: #0f3d2e;
+  --chart-5: #eaf5ec;
+
+  --sidebar: #0f3d2e;
+  --sidebar-foreground: #f5faf6;
+  --sidebar-primary: #f26b21;
+  --sidebar-primary-foreground: #fffaf6;
+  --sidebar-accent: #165c3c;
+  --sidebar-accent-foreground: #f5faf6;
+  --sidebar-border: #165c3c;
+  --sidebar-ring: #2f9e63;
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  ::selection {
+    background: #2f9e6340;
+    color: #143528;
+  }
+}
+
+@utility font-display {
+  font-family: var(--font-display);
+}
+
+@utility font-verse {
+  font-family: var(--font-verse);
+}
+
+.btn-shine {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-shine::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(105deg, transparent 30%, rgb(255 255 255 / 0.28) 50%, transparent 70%);
+  transform: translateX(120%);
+  transition: transform 0.55s ease;
+}
+
+.btn-shine:hover::after {
+  transform: translateX(-120%);
+}
+
+.give-slider::-webkit-slider-thumb {
+  appearance: none;
+  height: 22px;
+  width: 22px;
+  border-radius: 999px;
+  background: #f26b21;
+  border: 3px solid #fff;
+  box-shadow: 0 4px 12px #f26b214d;
+}
+
+.give-slider::-moz-range-thumb {
+  height: 22px;
+  width: 22px;
+  border-radius: 999px;
+  background: #f26b21;
+  border: 3px solid #fff;
+  box-shadow: 0 4px 12px #f26b214d;
+}
+
+.field-clip-video:fullscreen,
+.field-clip-video:-webkit-full-screen {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  background: #000;
+}
+
+.btn-donate {
+  animation: donate-glow 2.8s ease-in-out infinite;
+}
+
+@keyframes donate-glow {
+  0%,
+  100% {
+    box-shadow: 0 10px 24px #f26b214d;
+  }
+  50% {
+    box-shadow: 0 12px 32px #f26b2173;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn-shine::after {
+    display: none;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .btn-donate {
+    animation: none;
+  }
+}
