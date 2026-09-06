@@ -1,3 +1,4 @@
+import { Heart } from "lucide-react";
 import {
   createContext,
   useCallback,
@@ -5,7 +6,6 @@ import {
   useState,
   type ReactNode,
 } from "react";
-import { Heart } from "lucide-react";
 import {
   Dialog,
   DialogContent,
@@ -14,7 +14,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { DONATE_MESSAGE, DONATE_ORIGINS, originWhatsapp } from "./data";
-import { Button } from "./ui/Button";
+import { Button, buttonBase, buttonSizes, buttonVariants } from "./ui/Button";
 import { cn } from "@/lib/utils";
 
 type DonateChoiceContextValue = {
@@ -42,10 +42,10 @@ export function DonateChoiceProvider({ children }: { children: ReactNode }) {
     <DonateChoiceContext.Provider value={{ openDonate }}>
       {children}
       <Dialog open={open} onOpenChange={setOpen}>
-        <DialogContent className="max-w-md gap-4 rounded-3xl border-border p-5 sm:p-6 [&>button]:start-4 [&>button]:end-auto">
+        <DialogContent className="max-w-md gap-4 rounded-lg border-border p-5 sm:p-6 [&>button]:start-4 [&>button]:end-auto">
           <DialogHeader className="space-y-1 pe-8 text-start">
-            <p className="text-sm font-semibold text-primary">قصة التبرع</p>
-            <DialogTitle className="text-xl sm:text-2xl">وين بدك تتواصل من؟</DialogTitle>
+            <p className="type-kicker">قصة التبرع</p>
+            <DialogTitle className="type-h2">وين بدك تتواصل من؟</DialogTitle>
             <DialogDescription>
               نفس الشغل بالمخيم. الفرق بس برقم الواتساب، عشان الرسالة توصلك أسهل.
             </DialogDescription>
@@ -84,22 +84,14 @@ export function DonateButton({
   message,
 }: DonateButtonProps) {
   const { openDonate } = useDonateChoice();
-  const sizes = {
-    default: "rounded-full px-7 py-3 text-sm",
-    sm: "rounded-full px-5 py-2.5 text-sm",
-  };
 
   return (
     <button
       type="button"
       onClick={() => openDonate(message)}
-      className={cn(
-        "btn-shine btn-donate inline-flex min-h-11 items-center justify-center gap-2 bg-accent font-semibold text-accent-foreground shadow-[0_10px_24px_#f26b214d] transition-[transform,box-shadow,background] hover:bg-ember focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-leaf/50 focus-visible:ring-offset-2 focus-visible:ring-offset-background",
-        sizes[size],
-        className,
-      )}
+      className={cn(buttonBase, buttonSizes[size], buttonVariants.donate, className)}
     >
-      <Heart className="relative z-[1] h-4 w-4 fill-current" aria-hidden="true" />
+      <Heart className="relative z-[1] size-4 fill-current" aria-hidden="true" />
       <span className="relative z-[1]">{children}</span>
     </button>
   );

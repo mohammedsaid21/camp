@@ -1,11 +1,11 @@
 import type { Variants } from "framer-motion";
 
 export const fadeUp: Variants = {
-  hidden: { opacity: 0, y: 56 },
+  hidden: { opacity: 0, y: 18 },
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.85, ease: [0.16, 1, 0.3, 1] },
+    transition: { duration: 0.55, ease: [0.16, 1, 0.3, 1] },
   },
 };
 
@@ -18,12 +18,11 @@ export const fadeIn: Variants = {
 };
 
 export const imageReveal: Variants = {
-  hidden: { clipPath: "inset(0 0 100% 0)", scale: 1.08, opacity: 0.4 },
+  hidden: { clipPath: "inset(0 0 18% 0)", opacity: 0.5 },
   visible: {
     clipPath: "inset(0 0 0% 0)",
-    scale: 1,
     opacity: 1,
-    transition: { duration: 1.15, ease: [0.16, 1, 0.3, 1] },
+    transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] },
   },
 };
 

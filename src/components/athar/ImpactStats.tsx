@@ -31,11 +31,11 @@ function StatItem({ value, prefix, label }: { value: number; prefix?: string; la
 
   return (
     <motion.div ref={ref} variants={fadeUp} className="py-5">
-      <div className="font-display text-[clamp(1.8rem,4vw,2.6rem)] leading-none tracking-tight text-accent">
+      <div className="font-display type-stat">
         {prefix}
         {count.toLocaleString("en-US")}
       </div>
-      <div className="mt-1.5 text-xs text-muted-foreground md:text-sm">{label}</div>
+      <div className="mt-1.5 type-caption text-muted-foreground">{label}</div>
     </motion.div>
   );
 }
@@ -48,7 +48,7 @@ export function ImpactStats() {
         whileInView="visible"
         viewport={viewport}
         variants={stagger(0.06)}
-        className="mx-auto grid max-w-7xl grid-cols-2 px-5 md:grid-cols-3 md:px-10"
+        className="athar-wrap grid grid-cols-2 md:grid-cols-3"
       >
         {STATS.map((stat, index) => (
           <div
@@ -64,7 +64,7 @@ export function ImpactStats() {
           </div>
         ))}
       </motion.div>
-      <p className="mx-auto max-w-7xl px-5 pb-4 text-xs text-muted-foreground md:px-10">
+      <p className="athar-wrap pb-4 type-caption text-muted-foreground">
         {STATS_NOTE}
       </p>
     </section>

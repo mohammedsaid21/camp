@@ -7,8 +7,8 @@ import { PathSteps } from "./PathSteps";
 
 export function DonatePath() {
   return (
-    <section id="path" className="scroll-mt-24 bg-background py-10 md:py-14">
-      <div className="mx-auto max-w-7xl px-5 md:px-10">
+    <section id="path" className="athar-section bg-background">
+      <div className="athar-wrap">
         <motion.div
           initial="hidden"
           whileInView="visible"
@@ -16,9 +16,9 @@ export function DonatePath() {
           variants={fadeUp}
           className="mb-5 max-w-2xl"
         >
-          <p className="text-sm font-semibold text-primary">قصة التبرع</p>
-          <h2 className="mt-1 text-2xl font-semibold md:text-[1.75rem]">من غزة أو برا غزة — نفس الأثر.</h2>
-          <p className="mt-2 text-sm text-muted-foreground">
+          <p className="type-kicker">قصة التبرع</p>
+          <h2 className="type-h2 mt-2">من غزة أو برا غزة — نفس الأثر.</h2>
+          <p className="mt-2 type-body text-muted-foreground">
             التبرع بيوصل للمخيم من المكانين. بتختار الرقم حسب مكانك، وبعدها نفس الشغل.
           </p>
         </motion.div>
@@ -28,7 +28,7 @@ export function DonatePath() {
           whileInView="visible"
           viewport={viewport}
           variants={fadeUp}
-          className="rounded-3xl bg-forest p-2 text-forest-foreground md:p-2.5"
+          className="rounded-lg bg-forest p-2 text-forest-foreground"
         >
           <div className="px-4 pb-4 pt-5 md:px-6 md:pt-6">
             <p className="text-sm font-semibold text-leaf">وين بدك تتواصل من؟</p>
@@ -36,7 +36,7 @@ export function DonatePath() {
               نفس التنفيذ بالمخيم. الفرق بس برقم الواتساب.
             </p>
           </div>
-          <div className="grid gap-px overflow-hidden rounded-[1.25rem] bg-white/15 sm:grid-cols-2">
+          <div className="grid gap-px overflow-hidden rounded-md bg-white/15 sm:grid-cols-2">
             {DONATE_ORIGINS.map((origin) => {
               const isOutside = origin.id === "outside";
               return (
@@ -76,7 +76,7 @@ export function DonatePath() {
           whileInView="visible"
           viewport={viewport}
           variants={fadeUp}
-          className="mt-4 rounded-3xl bg-ivory px-5 py-6 md:px-8 md:py-7"
+          className="mt-4 rounded-lg bg-ivory px-5 py-6 md:px-8 md:py-7"
         >
           <p className="text-sm font-semibold">بعد الرسالة، نفس المسار.</p>
           <PathSteps className="mt-5" />

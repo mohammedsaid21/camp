@@ -7,6 +7,7 @@ export const IMPACT_CATEGORIES = [
   { id: "income", label: "مصدر دخل" },
   { id: "education", label: "التعليم" },
   { id: "essentials", label: "الاحتياجات الأساسية" },
+  { id: "mosque", label: "المسجد" },
 ] as const;
 
 export type ImpactCategoryId = (typeof IMPACT_CATEGORIES)[number]["id"];
@@ -42,6 +43,11 @@ export const IMPACT_INTENTS = [
     title: "مياه واحتياجات أساسية",
     description: "ساهم في توفير المياه والاحتياجات الأساسية للأسر المحتاجة.",
   },
+  {
+    id: "mosque",
+    title: "جهّز المصلى",
+    description: "ساهم في تجهيز جهاز صوت لمصلى نسائم الرحمة: أذان، صلاة، وحلقات قرآن.",
+  },
 ] as const satisfies ReadonlyArray<{
   id: Exclude<ImpactCategoryId, "all" | "families">;
   title: string;
@@ -76,6 +82,8 @@ export type ImpactProject = {
   useOfFunds: string;
   image: string;
   imageAlt: string;
+  documentUrl?: string;
+  donateMessage?: string;
   place: string;
   status: ImpactStatus;
   targetAmount: number | null;

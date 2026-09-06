@@ -8,18 +8,16 @@ export function SadaqaSection() {
   const { openMeter } = useGiveMeter();
 
   return (
-    <section id="donate" className="scroll-mt-24 bg-forest py-12 text-forest-foreground md:py-16">
+    <section id="donate" className="athar-section bg-forest text-forest-foreground">
       <motion.div
         initial="hidden"
         whileInView="visible"
         viewport={viewport}
         variants={fadeUp}
-        className="mx-auto max-w-7xl px-5 text-center md:px-10"
+        className="athar-wrap text-center"
       >
-        <p className="text-sm font-semibold text-leaf">صدقة ما بتنتهي عند الإيد</p>
-        <h2 className="mx-auto mt-2 text-[clamp(1.7rem,4vw,2.5rem)] font-semibold leading-snug">
-          اللي بتعطيه اليوم، بتشوف أثره بكرة.
-        </h2>
+        <p className="type-small font-semibold text-leaf">صدقة ما بتنتهي عند الإيد</p>
+        <h2 className="type-h1 mx-auto mt-2">اللي بتعطيه اليوم، بتشوف أثره بكرة.</h2>
         <blockquote className="font-verse mx-auto mt-5  text-lg leading-loose text-white/90 md:text-xl">
           ﴿مَن ذَا الَّذِي يُقْرِضُ اللَّهَ قَرْضًا حَسَنًا فَيُضَاعِفَهُ لَهُ أَضْعَافًا كَثِيرَةً﴾
         </blockquote>
@@ -28,18 +26,18 @@ export function SadaqaSection() {
           مو كلام تبرعات. شغل بالمخيم، متصوّر، وواصل. إذا حابب تكون جزء من الجاي — الباب مفتوح.
         </p>
 
-        <div className="mx-auto mt-8 grid max-w-2xl grid-cols-3 gap-3">
+        <div className="mx-auto mt-8 grid max-w-2xl grid-cols-2 gap-3 sm:grid-cols-4">
           <button
             type="button"
             onClick={() => openMeter("khubz")}
-            className="rounded-2xl border border-white/15 bg-white/10 px-2 py-3 backdrop-blur-sm transition-colors hover:bg-white/20"
+            className="rounded-lg border border-white/15 bg-white/10 px-2 py-3 backdrop-blur-sm transition-colors hover:bg-white/20"
           >
             <div className="text-base font-semibold text-white">أكل</div>
             <div className="mt-1 text-[11px] text-white/60">خبز · جاجة · طبخة</div>
           </button>
           <a
             href="#iftar"
-            className="rounded-2xl border border-white/15 bg-white/10 px-2 py-3 backdrop-blur-sm transition-colors hover:bg-white/20"
+            className="rounded-lg border border-white/15 bg-white/10 px-2 py-3 backdrop-blur-sm transition-colors hover:bg-white/20"
           >
             <div className="text-base font-semibold text-white">إفطار</div>
             <div className="mt-1 text-[11px] text-white/60">على سفرة صائم</div>
@@ -47,11 +45,18 @@ export function SadaqaSection() {
           <button
             type="button"
             onClick={() => openMeter("maa")}
-            className="rounded-2xl border border-white/15 bg-white/10 px-2 py-3 backdrop-blur-sm transition-colors hover:bg-white/20"
+            className="rounded-lg border border-white/15 bg-white/10 px-2 py-3 backdrop-blur-sm transition-colors hover:bg-white/20"
           >
             <div className="text-base font-semibold text-white">ماء</div>
             <div className="mt-1 text-[11px] text-white/60">تقدير: 100 شخص ≈ 200$</div>
           </button>
+          <a
+            href="#masjid"
+            className="rounded-lg border border-white/15 bg-white/10 px-2 py-3 backdrop-blur-sm transition-colors hover:bg-white/20"
+          >
+            <div className="text-base font-semibold text-white">المصلى</div>
+            <div className="mt-1 text-[11px] text-white/60">جهاز صوت</div>
+          </a>
         </div>
 
         <div className="mt-8 flex flex-wrap justify-center gap-3">

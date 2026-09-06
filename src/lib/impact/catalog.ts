@@ -2,14 +2,51 @@
  * كتالوج مشاريع الأثر.
  *
  * ما فيش جدول campaigns/projects ولا Supabase في المشروع.
- * المصدر الوحيد الموثّق: محتوى أثر الحالي (FIELD_REPORTS + GIVE_PACKS).
+ * المصدر الوحيد الموثّق: محتوى أثر الحالي (FIELD_REPORTS + GIVE_PACKS + بيان المصلى).
  *
  * ممنوع إضافة كفالة يتيم / مأوى / مصدر دخل / تعليم هنا ما لم يُوثَّق مشروع حقيقي.
  * الحقول المالية (target/raised/donors) تبقى null إلى أن يتوفر سجل جمع حقيقي.
  */
 import type { ImpactProject } from "./types";
+import { MASJID_DONATE_MESSAGE } from "@/components/athar/data";
 
 export const IMPACT_PROJECTS: ImpactProject[] = [
+  {
+    id: "masjid-sound",
+    slug: "masjid-sound",
+    title: "جهاز صوت لمصلى نسائم الرحمة",
+    kicker: "حملة مفتوحة",
+    category: "mosque",
+    summary:
+      "تجهيز جهاز صوت متكامل للمصلى: أذان، صلاة، دروس، وحلقات قرآن لأكثر من 300 طالب وطالبة. التقدير المعلن من 25,000 إلى 30,000 شيكل، حسب السعر وقت الشراء.",
+    problem:
+      "المصلى يحتاج جهاز صوت يوصل الأذان والصلاة والدروس بوضوح للمصلين جوا وبرّا، مع مصدر طاقة احتياطي وقت انقطاع الكهرباء.",
+    beneficiary:
+      "المصلون في مصلى نسائم الرحمة بالنصيرات، وطلبة حلقات القرآن (أكثر من 300 طالب وطالبة).",
+    goal: "تركيب كيبل، سماعات داخلية وخارجية، جهاز صوت متكامل، مايك، ومحوّل وبطارية حسب الحاجة.",
+    useOfFunds:
+      "حسب بيان المشروع: كيبل صوت ≈ 400 شيكل، سماعات خارجية 5,000، سماعات داخلية 5,000، جهاز صوت متكامل 5,000، ومايك ومحوّل وبطارية 100 أمبير حسب السعر. الأسعار تقديرية وبتتأكد وقت الشراء.",
+    image: "/athar/videos/masjid.jpg",
+    imageAlt: "مصلى نسائم الرحمة في النصيرات",
+    documentUrl: "/athar/masjid-campaign.jpg",
+    donateMessage: MASJID_DONATE_MESSAGE,
+    place: "النصيرات — غرب مقبرة السوارحة",
+    status: "open",
+    targetAmount: null,
+    amountRaised: null,
+    donorCount: null,
+    priority: 1,
+    currency: "USD",
+    contributionPresets: [],
+    impactTiers: [],
+    updates: [
+      { id: "open", label: "باب المساهمة مفتوح", done: true, at: null },
+      { id: "run", label: "الشراء والتركيب بعد تجميع المساهمات", done: false, at: null },
+      { id: "doc", label: "التوثيق يُنشر بعد التجهيز", done: false, at: null },
+    ],
+    createdAt: null,
+    completedAt: null,
+  },
   {
     id: "feed-families",
     slug: "feed-families",

@@ -68,12 +68,12 @@ export function ImpactHome({ initialProjects }: { initialProjects: ImpactProject
 
   return (
     <div className="bg-background pb-16 pt-24 md:pt-28">
-      <section className="mx-auto max-w-7xl px-5 md:px-10">
+      <section className="athar-wrap">
         <div className="grid items-end gap-8 lg:grid-cols-[minmax(0,1.1fr)_0.9fr]">
           <div>
-            <p className="text-sm font-semibold text-primary">أثر تصنعه بإيدك</p>
-            <h1 className="mt-2 text-[clamp(2.2rem,8vw,4.2rem)] font-semibold leading-[1.1]">اصنع أثرًا</h1>
-            <p className="mt-4 max-w-[42ch] text-base leading-relaxed text-muted-foreground md:text-lg">
+            <p className="type-kicker">أثر تصنعه بإيدك</p>
+            <h1 className="type-display mt-2">اصنع أثرًا</h1>
+            <p className="type-lead mt-4 max-w-[42ch] text-muted-foreground">
               اختر أثرًا تريد أن تتركه، وساهم في تحويل تبرعك إلى شيء ملموس في حياة إنسان.
             </p>
             <div className="mt-6 flex flex-col gap-2.5 sm:flex-row sm:flex-wrap">
@@ -85,7 +85,7 @@ export function ImpactHome({ initialProjects }: { initialProjects: ImpactProject
               </Button>
             </div>
           </div>
-          <div className="overflow-hidden rounded-3xl">
+          <div className="overflow-hidden rounded-lg">
             <img
               src={HERO_IMAGE}
               alt="توثيق ميداني من مخيم نسائم الرحمة"
@@ -99,10 +99,10 @@ export function ImpactHome({ initialProjects }: { initialProjects: ImpactProject
         <VerseBand ayah={HADITH_UMMAH.text} surah={HADITH_UMMAH.source} />
       </div>
 
-      <section id="projects" className="scroll-mt-28 mx-auto mt-12 max-w-7xl px-5 md:px-10">
-        <h2 className="text-2xl font-semibold md:text-[1.85rem]">ماذا تريد أن تصنع اليوم؟</h2>
-        <p className="mt-2 max-w-[48ch] text-sm text-muted-foreground md:text-base">
-          اختر المشروع الأقرب إلى قلبك، وساهم بالمبلغ الذي تستطيع.
+      <section id="projects" className="athar-wrap mt-12 scroll-mt-28">
+        <h2 className="type-h2">مساعدة تحتاج أن تصل الآن.</h2>
+        <p className="mt-2 max-w-[48ch] type-body text-muted-foreground">
+          كل حملة لها مسار واضح. اللي ظاهر تحت إما مساهمة مفتوحة، أو شغل مكتمل عليه توثيق.
         </p>
 
         <p className="mt-3 text-xs text-muted-foreground">
@@ -117,7 +117,7 @@ export function ImpactHome({ initialProjects }: { initialProjects: ImpactProject
               onClick={() => chooseCategory(intent.id)}
               aria-pressed={category === intent.id}
               className={cn(
-                "rounded-3xl bg-card p-4 text-start shadow-[0_8px_28px_#1435280c] transition-transform duration-300 hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-leaf/50 md:p-5",
+                "athar-card p-4 text-start transition-transform duration-300 hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring md:p-5",
                 category === intent.id && "ring-2 ring-primary/40",
               )}
             >
@@ -172,13 +172,13 @@ export function ImpactHome({ initialProjects }: { initialProjects: ImpactProject
           {query.isPending && (
             <div className="mt-8 grid gap-6 sm:grid-cols-2">
               {Array.from({ length: 4 }).map((_, i) => (
-                <Skeleton key={i} className="h-80 rounded-3xl" />
+                <Skeleton key={i} className="h-80 rounded-lg" />
               ))}
             </div>
           )}
 
           {query.isError && (
-            <div className="mt-10 rounded-3xl bg-ivory p-8 text-center">
+            <div className="mt-10 athar-card p-8 text-center">
               <p className="font-semibold">تعذر تحميل المشاريع.</p>
               <button
                 type="button"
@@ -191,7 +191,7 @@ export function ImpactHome({ initialProjects }: { initialProjects: ImpactProject
           )}
 
           {query.isSuccess && visible.length === 0 && (
-            <div className="mt-10 rounded-3xl bg-ivory p-8 text-center">
+            <div className="mt-10 athar-card p-8 text-center">
               <p className="font-semibold">لا توجد مشاريع متاحة حاليًا.</p>
               <p className="mt-2 text-sm text-muted-foreground">
                 نعمل على إضافة مشاريع جديدة قريبًا. ما منعرض مشاريع وهمية بهالتصنيف.
@@ -215,16 +215,16 @@ export function ImpactHome({ initialProjects }: { initialProjects: ImpactProject
         </div>
       </section>
 
-      <section id="how" className="scroll-mt-28 mx-auto mt-16 max-w-7xl px-5 md:px-10">
+      <section id="how" className="athar-wrap mt-16 scroll-mt-28">
         <h2 className="text-2xl font-semibold">كيف يعمل؟</h2>
         <p className="mt-2 text-sm text-muted-foreground">بعد الرسالة، نفس المسار من المخيم للأرشيف.</p>
-        <div className="mt-6 rounded-3xl bg-ivory px-5 py-6 md:px-8 md:py-7">
+        <div className="mt-6 rounded-lg bg-ivory px-5 py-6 md:px-8 md:py-7">
           <PathSteps />
         </div>
       </section>
 
-      <section className="mx-auto mt-16 max-w-7xl px-5 md:px-10">
-        <div className="rounded-3xl bg-forest px-5 py-8 text-forest-foreground md:px-10">
+      <section className="athar-wrap mt-16">
+        <div className="rounded-lg bg-forest px-5 py-8 text-forest-foreground md:px-10">
           <h2 className="text-2xl font-semibold">تبرعك لا ينتهي عند الدفع.</h2>
           <p className="mt-2 max-w-[46ch] text-sm leading-relaxed text-white/75">
             نتابع المشاريع ونشارك تحديثاتها على الموقع لما يصير تنفيذ وتوثيق. ما منوعد ببريد تلقائي ما دام مش موجود

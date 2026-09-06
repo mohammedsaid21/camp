@@ -1,10 +1,5 @@
 export const NAV = [
-  { label: "الرئيسية", href: "/" },
-  { label: "اصنع أثرًا", href: "/impact" },
-  // { label: "التوثيق", href: "/#archive" },
   { label: "الفيديوهات", href: "/videos" },
-  { label: "الصدقة", href: "/#donate" },
-  { label: "من نحن", href: "/#about" },
   { label: "احسب زكاتك", href: "/zakat" },
 ] as const;
 
@@ -19,6 +14,9 @@ export const WHATSAPP_GAZA_NUMBER = "972595572743";
 
 export const DONATE_MESSAGE =
   "السلام عليكم، حابب أتبرع عبر أثر لمخيم نسائم الرحمة.";
+
+export const MASJID_DONATE_MESSAGE =
+  "السلام عليكم، حابب أساهم في مشروع تجهيز جهاز صوت لمصلى نسائم الرحمة.";
 
 export function whatsappHref(message = DONATE_MESSAGE, number = WHATSAPP_OUTSIDE_NUMBER) {
   return `https://wa.me/${number}?text=${encodeURIComponent(message)}`;
@@ -52,6 +50,7 @@ export function originWhatsapp(originId: DonateOriginId, message = DONATE_MESSAG
 }
 
 export const BRAND_FLOW = [
+  { label: "تبرع", key: "give" },
   { label: "تنفيذ", key: "execute" },
   { label: "توثيق", key: "document" },
   { label: "أثر", key: "impact" },
@@ -89,8 +88,8 @@ export const FIELD_REPORTS = [
     place: "مخيم نسائم الرحمة",
     kind: "خبز",
     status: "مكتمل",
-    image: "/athar/videos/khubz.jpg",
-    video: "/athar/videos/khubz.mp4",
+    image: "/athar/videos/khubz-2.jpg",
+    clipTitleIncludes: "80",
     figure: "80",
     figureLabel: "عائلة",
     scope: "80 عائلة داخل المخيم، من تنفيذ التوزيع نفسه.",
@@ -108,7 +107,6 @@ export const FIELD_REPORTS = [
     kind: "إفطار",
     status: "مكتمل",
     image: "/athar/videos/helw.jpg",
-    video: "/athar/videos/iftar.mp4",
     figure: "+200",
     figureLabel: "صائم",
     scope: "أكثر من 200 صائم على سفرة واحدة في المخيم.",
@@ -216,6 +214,7 @@ export const FOOTER_COLUMNS = [
     h: "التوثيق",
     items: [
       { label: "أرشيف المشاريع", href: "/#archive" },
+      { label: "جهاز صوت المصلى", href: "/#masjid" },
       { label: "كل الفيديوهات", href: "/videos" },
       { label: "احسب زكاتك", href: "/zakat" },
       { label: "معلومات التبرع", href: "/#donate" },

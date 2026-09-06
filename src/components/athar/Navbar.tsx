@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { NAV } from "./data";
-import { Button } from "./ui/Button";
 import { DonateButton } from "./DonateChoice";
 import { cn } from "@/lib/utils";
 
@@ -19,24 +18,21 @@ export function Navbar() {
   return (
     <header
       className={cn(
-        "fixed inset-x-0 top-0 z-50 bg-forest text-forest-foreground transition-all duration-300",
-        scrolled ? "py-3 shadow-[0_10px_30px_#0f3d2e40]" : "py-4",
+        "fixed inset-x-0 top-0 z-50 bg-forest text-forest-foreground transition-[padding,box-shadow] duration-300",
+        scrolled ? "py-2.5 shadow-card" : "py-3.5",
       )}
     >
-      <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-5 md:px-10">
-        <a
-          href="/"
-          className="font-display text-[1.75rem] leading-none tracking-tight text-white"
-        >
+      <div className="athar-wrap flex items-center justify-between gap-4">
+        <a href="/" className="font-display text-[1.65rem] leading-none tracking-tight text-white">
           أثر<span className="text-accent">.</span>
         </a>
 
-        <nav className="hidden items-center gap-8 lg:flex">
+        <nav className="hidden items-center gap-8 md:flex" aria-label="التنقل الرئيسي">
           {NAV.map((item) => (
             <a
               key={item.href}
               href={item.href}
-              className="text-sm text-white/75 transition-colors hover:text-white"
+              className="type-small text-white/75 transition-colors hover:text-white"
             >
               {item.label}
             </a>
@@ -44,32 +40,17 @@ export function Navbar() {
         </nav>
 
         <div className="flex items-center gap-2">
-          <Button href="/#archive" variant="ghostOnDark" size="sm" className="hidden sm:inline-flex">
-            شوف التوثيق
-          </Button>
-          <DonateButton size="sm" className="hidden sm:inline-flex">
-            تبرع الآن
-          </DonateButton>
+          <DonateButton size="sm">تبرع الآن</DonateButton>
           <button
             type="button"
             aria-label="القائمة"
             aria-expanded={open}
             onClick={() => setOpen((v) => !v)}
-            className="flex h-10 w-10 flex-col items-center justify-center gap-1.5 rounded-full border border-white/25 lg:hidden"
+            className="flex size-11 flex-col items-center justify-center gap-1.5 rounded-full border border-white/25 md:hidden"
           >
-            <span
-              className={cn(
-                "h-px w-4 bg-white transition-transform",
-                open && "translate-y-[5px] rotate-45",
-              )}
-            />
+            <span className={cn("h-px w-4 bg-white transition-transform", open && "translate-y-[5px] rotate-45")} />
             <span className={cn("h-px w-4 bg-white transition-opacity", open && "opacity-0")} />
-            <span
-              className={cn(
-                "h-px w-4 bg-white transition-transform",
-                open && "-translate-y-[5px] -rotate-45",
-              )}
-            />
+            <span className={cn("h-px w-4 bg-white transition-transform", open && "-translate-y-[5px] -rotate-45")} />
           </button>
         </div>
       </div>
@@ -80,27 +61,21 @@ export function Navbar() {
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.25 }}
-            className="overflow-hidden border-t border-white/15 bg-forest lg:hidden"
+            transition={{ duration: 0.22 }}
+            className="overflow-hidden border-t border-white/15 bg-forest md:hidden"
           >
-            <ul className="flex flex-col px-5 py-4">
+            <ul className="flex flex-col px-5 py-3">
               {NAV.map((item) => (
                 <li key={item.href}>
                   <a
                     href={item.href}
                     onClick={() => setOpen(false)}
-                    className="block border-b border-white/10 py-3.5 text-sm text-white/80"
+                    className="block border-b border-white/10 py-3.5 type-small text-white/80"
                   >
                     {item.label}
                   </a>
                 </li>
               ))}
-              <li className="flex flex-col gap-2 pt-4">
-                <Button href="/#archive" variant="ghostOnDark" className="w-full">
-                  شوف التوثيق
-                </Button>
-                <DonateButton className="w-full">تبرع الآن</DonateButton>
-              </li>
             </ul>
           </motion.div>
         )}

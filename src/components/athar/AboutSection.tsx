@@ -5,8 +5,8 @@ import { fadeUp, stagger, viewport } from "./motion";
 
 export function AboutSection() {
   return (
-    <section id="about" className="scroll-mt-24 bg-ivory py-12 md:py-16">
-      <div className="mx-auto max-w-7xl px-5 md:px-10">
+    <section id="about" className="athar-section bg-ivory">
+      <div className="athar-wrap">
         <motion.div
           initial="hidden"
           whileInView="visible"
@@ -14,11 +14,9 @@ export function AboutSection() {
           variants={fadeUp}
           className="max-w-2xl"
         >
-          <p className="text-sm font-semibold text-primary">{ABOUT.kicker}</p>
-          <h2 className="mt-1 text-[clamp(1.7rem,4vw,2.4rem)] font-semibold leading-snug">
-            {ABOUT.title}
-          </h2>
-          <div className="mt-5 space-y-3 text-sm leading-relaxed text-muted-foreground md:text-base">
+          <p className="type-kicker">{ABOUT.kicker}</p>
+          <h2 className="type-h1 mt-2">{ABOUT.title}</h2>
+          <div className="mt-5 space-y-3 type-body text-muted-foreground">
             {ABOUT.paragraphs.map((p) => (
               <p key={p}>{p}</p>
             ))}
@@ -36,7 +34,7 @@ export function AboutSection() {
             <motion.article
               key={block.id}
               variants={fadeUp}
-              className="rounded-2xl border border-border bg-card p-4"
+              className="athar-card p-4"
             >
               <h3 className="font-semibold">{block.h}</h3>
               <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{block.d}</p>

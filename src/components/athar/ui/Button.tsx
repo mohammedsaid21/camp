@@ -3,14 +3,34 @@ import { ArrowLeft, Heart } from "lucide-react";
 import type { ReactNode } from "react";
 import { cn } from "@/lib/utils";
 
+export type ButtonVariant = "primary" | "secondary" | "donate" | "ghost" | "ghostOnDark" | "text";
+export type ButtonSize = "default" | "sm";
+
 type ButtonProps = {
   href: string;
   children: ReactNode;
-  variant?: "primary" | "donate" | "ghost" | "ghostOnDark" | "link";
+  variant?: ButtonVariant;
   className?: string;
-  size?: "default" | "sm";
+  size?: ButtonSize;
   arrow?: boolean;
   onClick?: () => void;
+};
+
+export const buttonBase =
+  "btn-shine inline-flex min-h-11 cursor-pointer items-center justify-center gap-2 font-semibold transition-[transform,background-color,border-color,box-shadow] duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:pointer-events-none disabled:opacity-50";
+
+export const buttonSizes: Record<ButtonSize, string> = {
+  default: "rounded-full px-6 py-2.5 text-sm",
+  sm: "rounded-full px-5 py-2 text-sm",
+};
+
+export const buttonVariants: Record<ButtonVariant, string> = {
+  primary: "bg-primary text-primary-foreground hover:bg-forest",
+  secondary: "border border-border bg-card text-foreground hover:bg-ivory",
+  donate: "bg-accent text-accent-foreground hover:bg-ember",
+  ghost: "border border-primary/25 bg-card text-primary hover:border-primary hover:bg-ivory",
+  ghostOnDark: "border border-white/40 bg-white/10 text-white hover:border-white hover:bg-white/20",
+  text: "rounded-none border-b border-accent px-0 pb-0.5 text-foreground shadow-none hover:text-primary",
 };
 
 export function Button({
@@ -22,28 +42,8 @@ export function Button({
   arrow = true,
   onClick,
 }: ButtonProps) {
-  const base =
-    "btn-shine inline-flex min-h-11 items-center justify-center gap-2 font-semibold transition-[transform,box-shadow,background] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-leaf/50 focus-visible:ring-offset-2 focus-visible:ring-offset-background";
-
-  const sizes = {
-    default: "rounded-full px-7 py-3 text-sm",
-    sm: "rounded-full px-5 py-2.5 text-sm",
-  };
-
-  const variants = {
-    primary:
-      "bg-primary text-primary-foreground shadow-[0_10px_24px_#1b7a4a44] hover:bg-[#166c41]",
-    donate:
-      "btn-donate bg-accent text-accent-foreground shadow-[0_10px_24px_#f26b214d] hover:bg-ember",
-    ghost:
-      "border-2 border-primary/30 bg-white text-primary hover:border-primary hover:bg-ivory",
-    ghostOnDark:
-      "border border-white/45 bg-white/10 text-white hover:border-white hover:bg-white/20",
-    link: "rounded-none border-b-2 border-accent px-0 pb-0.5 text-accent shadow-none hover:border-ember",
-  };
-
   const showHeart = variant === "donate";
-  const showArrow = arrow && variant !== "link" && variant !== "donate";
+  const showArrow = arrow && variant !== "text" && variant !== "donate";
 
   return (
     <motion.a
@@ -51,17 +51,13 @@ export function Button({
       onClick={onClick}
       target={href.startsWith("http") ? "_blank" : undefined}
       rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
-      whileHover={{ y: variant === "link" ? 0 : -2 }}
+      whileHover={{ y: variant === "text" ? 0 : -1 }}
       whileTap={{ scale: 0.98 }}
-      className={cn(base, sizes[size], variants[variant], className)}
+      className={cn(buttonBase, buttonSizes[size], buttonVariants[variant], className)}
     >
-      {showHeart && (
-        <Heart className="relative z-[1] h-4 w-4 fill-current" aria-hidden="true" />
-      )}
+      {showHeart && <Heart className="relative z-[1] size-4 fill-current" aria-hidden="true" />}
       <span className="relative z-[1]">{children}</span>
-      {showArrow && (
-        <ArrowLeft className="relative z-[1] h-4 w-4" aria-hidden="true" />
-      )}
+      {showArrow && <ArrowLeft className="relative z-[1] size-4" aria-hidden="true" />}
     </motion.a>
   );
 }

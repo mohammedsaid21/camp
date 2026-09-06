@@ -1,75 +1,67 @@
-import { useState } from "react";
 import { motion } from "framer-motion";
-import { Droplets } from "lucide-react";
-import { FIELD_REPORTS } from "./data";
-import { FieldClip } from "./FieldClip";
+import { FIELD_REPORTS, MASJID_DONATE_MESSAGE } from "./data";
 import { fadeUp, stagger, viewport } from "./motion";
+import { VaultClipPlayer } from "@/components/vault/VaultClipPlayer";
+import type { VaultClip } from "@/lib/vault/types";
+import { StatusBadge } from "./StatusBadge";
+import { ImpactLine } from "./ImpactLine";
 import { useGiveMeter } from "./GiveMeter";
+import { Heart } from "lucide-react";
+import { Button, buttonBase, buttonSizes, buttonVariants } from "./ui/Button";
+import { DonateButton } from "./DonateChoice";
+import { cn } from "@/lib/utils";
 
-function ReportFacts({
-  report,
+function clipFor(uploads: VaultClip[], projectId: string, titleIncludes?: string) {
+  const matches = uploads.filter((item) => item.projectId === projectId);
+  if (titleIncludes) {
+    const hinted = matches.find((item) => item.title.includes(titleIncludes));
+    if (hinted) return hinted;
+  }
+  return matches[0];
+}
+
+function ReportMedia({
+  src,
+  poster,
+  title,
+  className,
 }: {
-  report: (typeof FIELD_REPORTS)[number];
+  src?: string;
+  poster: string;
+  title: string;
+  className?: string;
 }) {
-  const [open, setOpen] = useState(false);
-
-  const rows = [
-    { k: "الموقع", v: report.place },
-    { k: "تاريخ التنفيذ", v: report.date ?? "يُضاف من سجل التنفيذ" },
-    { k: "المستفيدون", v: `${report.figure} ${report.figureLabel}` },
-    { k: "الكمية", v: report.quantity ?? "يُضاف من سجل التنفيذ" },
-    { k: "تكلفة المشروع", v: report.cost ?? "يُضاف من سجل التنفيذ" },
-  ];
-
+  if (src) {
+    return <VaultClipPlayer src={src} poster={poster} title={title} className={className} />;
+  }
   return (
-    <>
-      <dl className="mt-3 space-y-1.5 text-sm">
-        {rows.map((row) => (
-          <div key={row.k} className="flex justify-between gap-3 border-b border-border/70 py-1.5">
-            <dt className="text-muted-foreground">{row.k}</dt>
-            <dd className="text-end font-medium">{row.v}</dd>
-          </div>
-        ))}
-      </dl>
-      <p className="mt-2 text-xs text-muted-foreground">{report.scope}</p>
-      <button
-        type="button"
-        onClick={() => setOpen((v) => !v)}
-        className="mt-2 text-sm font-medium text-primary"
-        aria-expanded={open}
-      >
-        {open ? "إخفاء السجل" : "عرض سجل المشروع"}
-      </button>
-      {open && <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{report.record}</p>}
-    </>
+    <div className={cn("relative overflow-hidden bg-ivory", className)}>
+      <img src={poster} alt={title} className="h-full w-full object-cover" />
+    </div>
   );
 }
 
-export function DocumentedCampaign() {
+export function DocumentedCampaign({ uploads }: { uploads: VaultClip[] }) {
   const { openMeter } = useGiveMeter();
+  const waterClip = clipFor(uploads, "water") ?? clipFor(uploads, "maa");
+  const masjidClip = clipFor(uploads, "masjid");
 
   return (
-    <section id="archive" className="scroll-mt-24 bg-surface py-10 md:py-14">
-      <div className="mx-auto max-w-7xl px-5 md:px-10">
+    <section id="archive" className="athar-section bg-forest text-forest-foreground">
+      <div className="athar-wrap">
         <motion.div
           initial="hidden"
           whileInView="visible"
           viewport={viewport}
           variants={fadeUp}
-          className="mb-8 flex flex-wrap items-end justify-between gap-3"
+          className="mb-10 max-w-2xl"
         >
-          <div>
-            <p className="text-sm font-semibold text-primary">أرشيف التنفيذ</p>
-            <h2 className="mt-1 text-2xl font-semibold md:text-[1.75rem]">كل رقم إله سجل.</h2>
-          </div>
-          <div className="flex max-w-[36ch] flex-col items-start gap-2">
-            <p className="text-sm text-muted-foreground">
-              الأرقام من التنفيذ بالمخيم. اللي لسا ما انرفق بسجل الشراء، منتركه فارغ بدل ما نخترعه.
-            </p>
-            <a href="/videos" className="text-sm font-medium text-primary">
-              كل الفيديوهات
-            </a>
-          </div>
+          <p className="type-kicker text-accent">أرشيف التنفيذ</p>
+          <h2 className="type-h1 mt-2">الأثر لا يُحكى. يُوثَّق.</h2>
+          <p className="mt-3 max-w-[46ch] type-body text-white/70">
+            الخبز والإفطار خلصوا من المخيم، بأرقامهم وتصويرهم. الماء والمصلى حاجات جاية، والمساهمة مفتوحة.
+          </p>
+          <ImpactLine compact inverted className="mt-4" activeKey="document" />
         </motion.div>
 
         <motion.div
@@ -77,74 +69,121 @@ export function DocumentedCampaign() {
           whileInView="visible"
           viewport={viewport}
           variants={stagger(0.08)}
-          className="grid gap-6 md:grid-cols-3"
+          className="grid gap-5 lg:grid-cols-2"
         >
-          {FIELD_REPORTS.map((report) => (
-            <motion.article
-              key={report.id}
-              id={report.id}
-              variants={fadeUp}
-              className="flex flex-col overflow-hidden rounded-2xl border border-border bg-card shadow-[0_12px_32px_#1435280f] scroll-mt-28"
-            >
-              <FieldClip src={report.video} poster={report.image} title={report.title} />
-              <div className="flex flex-1 flex-col p-4">
-                <p className="text-xs font-medium text-leaf">{report.status}</p>
-                <h3 className="mt-1 text-lg font-semibold">{report.title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{report.lead}</p>
-                <ReportFacts report={report} />
-                {report.id === "khubz" && (
-                  <button
-                    type="button"
-                    onClick={() => openMeter("khubz")}
-                    className="btn-shine mt-4 rounded-full bg-primary px-4 py-2.5 text-sm font-semibold text-primary-foreground"
-                  >
-                    كم عائلة بدك تطعم؟
-                  </button>
-                )}
-              </div>
-            </motion.article>
-          ))}
-
-          <motion.article
-            id="maa"
-            variants={fadeUp}
-            className="flex flex-col overflow-hidden rounded-2xl bg-forest p-4 text-forest-foreground shadow-[0_12px_32px_#0f3d2e33] scroll-mt-28"
-          >
-            <div className="relative aspect-[9/16] overflow-hidden rounded-xl bg-white/10">
-              {/* <img src="/athar/water.jpg" alt="" className="h-full w-full object-cover opacity-80" /> */}
-              <div className="absolute inset-0 bg-forest/40" />
-              <Droplets className="absolute bottom-4 start-4 h-10 w-10 text-white" aria-hidden="true" />
-            </div>
-            <p className="mt-4 text-xs text-white/55">فرصة عطاء · تقدير تكلفة</p>
-            <h3 className="mt-1.5 text-lg font-semibold">شاحنة الماء</h3>
-            <p className="mt-2 text-sm leading-relaxed text-white/75">
-              200$ تكلفة تقديرية لتوفير الماء لـ100 شخص حسب تكلفة التنفيذ الحالية.
-            </p>
-            <dl className="mt-3 space-y-1.5 text-sm">
-              {[
-                { k: "يشمل التقدير", v: "شراء الماء، النقل، التوزيع" },
-                { k: "ما يشمل", v: "شراء شاحنة" },
-                { k: "اللتر والأيام", v: "بتننشر مع كل تنفيذ" },
-              ].map((row) => (
-                <div key={row.k} className="flex justify-between gap-3 border-b border-white/15 py-1.5">
-                  <dt className="text-white/55">{row.k}</dt>
-                  <dd className="text-end">{row.v}</dd>
+          {FIELD_REPORTS.map((report) => {
+            const clip = clipFor(uploads, report.id, "clipTitleIncludes" in report ? report.clipTitleIncludes : undefined);
+            return (
+              <motion.article
+                key={report.id}
+                id={report.id}
+                variants={fadeUp}
+                className="grid scroll-mt-28 overflow-hidden rounded-lg border border-white/12 bg-white/[0.06] md:grid-cols-[minmax(0,17rem)_minmax(0,1fr)]"
+              >
+                <ReportMedia
+                  src={clip?.videoUrl}
+                  poster={clip?.posterUrl ?? report.image}
+                  title={report.title}
+                  className="aspect-[4/5] max-h-[22rem] w-full md:max-h-none md:h-full"
+                />
+                <div className="flex flex-col justify-center p-5 md:p-6">
+                  <div className="flex flex-wrap gap-1.5">
+                    <StatusBadge tone="complete" label={report.status} />
+                    <StatusBadge tone="documented" />
+                  </div>
+                  <p className="type-stat mt-4">
+                    {report.figure}{" "}
+                    <span className="align-middle text-lg font-semibold tracking-normal text-white/80">
+                      {report.figureLabel}
+                    </span>
+                  </p>
+                  <h3 className="type-h2 mt-2">{report.title}</h3>
+                  <p className="mt-2 type-small leading-relaxed text-white/65">{report.lead}</p>
+                  <p className="mt-3 type-caption text-white/45">{report.place}</p>
+                  <a href="/videos" className="mt-4 type-small font-medium text-accent">
+                    شاهد التوثيق
+                  </a>
                 </div>
-              ))}
-            </dl>
-            <div className="mt-auto border-t border-white/15 pt-3">
-              <span className="font-display text-2xl text-accent">100</span>
-              <span className="ms-2 text-xs text-white/55">شخص ≈ 200$</span>
-            </div>
-            <button
-              type="button"
-              onClick={() => openMeter("maa")}
-              className="btn-shine mt-3 rounded-full bg-accent px-4 py-2.5 text-sm font-semibold text-accent-foreground"
-            >
-              احسب التقدير
-            </button>
-          </motion.article>
+              </motion.article>
+            );
+          })}
         </motion.div>
+
+        <motion.article
+          id="maa"
+          initial="hidden"
+          whileInView="visible"
+          viewport={viewport}
+          variants={fadeUp}
+          className="mt-5 grid scroll-mt-28 overflow-hidden rounded-lg border border-white/12 bg-white/[0.06] sm:grid-cols-[minmax(0,9.5rem)_minmax(0,1fr)]"
+        >
+          <ReportMedia
+            src={waterClip?.videoUrl}
+            poster={waterClip?.posterUrl ?? "/athar/water.jpg"}
+            title="شاحنة الماء"
+            className="aspect-[4/5] max-h-[16rem] w-full sm:max-h-none sm:h-full"
+          />
+          <div className="flex flex-col justify-center p-5 md:flex-row md:items-center md:gap-6 md:p-6">
+            <div className="min-w-0 flex-1">
+              <div className="flex flex-wrap gap-1.5">
+                <StatusBadge tone="active" label="الحاجة الجاية" className="bg-accent/20 text-accent" />
+              </div>
+              <h3 className="type-h2 mt-3">شاحنة الماء</h3>
+              <p className="mt-2 max-w-[48ch] type-small leading-relaxed text-white/65">
+                سقيا المخيم بند تنفيذ، مش شراء شاحنة. التقدير معلن: 100 شخص ≈ 200$. الفيديو من التوزيع على الأرض.
+              </p>
+            </div>
+            <div className="mt-4 flex shrink-0 flex-col gap-2 md:mt-0">
+              <button
+                type="button"
+                onClick={() => openMeter("maa")}
+                className={cn(buttonBase, buttonSizes.sm, buttonVariants.donate)}
+              >
+                <Heart className="relative z-[1] size-4 fill-current" aria-hidden="true" />
+                <span className="relative z-[1]">ساهم في السقيا</span>
+              </button>
+              <Button href="/videos" variant="ghostOnDark" size="sm" arrow={false} className="min-h-11">
+                فيديوهات الماء
+              </Button>
+            </div>
+          </div>
+        </motion.article>
+
+        <motion.article
+          id="masjid"
+          initial="hidden"
+          whileInView="visible"
+          viewport={viewport}
+          variants={fadeUp}
+          className="mt-5 grid scroll-mt-28 overflow-hidden rounded-lg border border-white/12 bg-white/[0.06] sm:grid-cols-[minmax(0,9.5rem)_minmax(0,1fr)]"
+        >
+          <ReportMedia
+            src={masjidClip?.videoUrl}
+            poster={masjidClip?.posterUrl ?? "/athar/videos/masjid.jpg"}
+            title="جهاز صوت للمصلى"
+            className="aspect-[4/5] max-h-[16rem] w-full sm:max-h-none sm:h-full"
+          />
+          <div className="flex flex-col justify-center p-5 md:flex-row md:items-center md:gap-6 md:p-6">
+            <div className="min-w-0 flex-1">
+              <div className="flex flex-wrap gap-1.5">
+                <StatusBadge tone="active" label="حملة مفتوحة" className="bg-accent/20 text-accent" />
+              </div>
+              <h3 className="type-h2 mt-3">جهاز صوت للمصلى</h3>
+              <p className="mt-2 max-w-[48ch] type-small leading-relaxed text-white/65">
+                أذان وصلاة وحلقات قرآن لأكثر من 300 طالب. التقدير من بيان المشروع: 25,000 إلى 30,000 شيكل، حسب السعر وقت الشراء.
+              </p>
+              <p className="mt-2 type-caption text-white/45">النصيرات — غرب مقبرة السوارحة</p>
+            </div>
+            <div className="mt-4 flex shrink-0 flex-col gap-2 md:mt-0">
+              <DonateButton message={MASJID_DONATE_MESSAGE} size="sm">
+                ساهم في التجهيز
+              </DonateButton>
+              <Button href="/impact/masjid-sound" variant="ghostOnDark" size="sm" arrow={false} className="min-h-11">
+                بيان المشروع
+              </Button>
+            </div>
+          </div>
+        </motion.article>
       </div>
     </section>
   );

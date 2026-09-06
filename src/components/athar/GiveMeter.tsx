@@ -98,7 +98,7 @@ function GiveMeterDialog({
 
   return (
     <Dialog open={activeId !== null} onOpenChange={onOpenChange}>
-      <DialogContent className="max-h-[min(92dvh,760px)] w-[calc(100%-1.25rem)] max-w-md gap-3 overflow-y-auto rounded-3xl border-border p-4 sm:gap-4 sm:rounded-3xl sm:p-8 [&>button]:start-4 [&>button]:end-auto [&>button]:right-auto [&>button]:left-4">
+      <DialogContent className="max-h-[min(92dvh,760px)] w-[calc(100%-1.25rem)] max-w-md gap-3 overflow-y-auto rounded-lg border-border p-4 sm:gap-4 sm:p-8 [&>button]:start-4 [&>button]:end-auto [&>button]:right-auto [&>button]:left-4">
         <DialogHeader className="space-y-1 pe-8 text-start sm:text-start">
           <p className="text-sm font-semibold text-primary">{pack.kicker}</p>
           <DialogTitle className="flex items-center gap-2 text-xl sm:text-2xl">
@@ -139,7 +139,7 @@ function GiveMeterDialog({
           </div>
         )}
 
-        <div className="rounded-3xl bg-forest px-4 py-5 text-center text-forest-foreground sm:px-5 sm:py-6">
+        <div className="rounded-lg bg-forest px-4 py-5 text-center text-forest-foreground sm:px-5 sm:py-6">
           <p className="text-sm text-white/70">
             {pack.action} · {kind.label}
           </p>
@@ -179,7 +179,7 @@ function GiveMeterDialog({
             onChange={(e) => setQty(Number(e.target.value))}
             className="give-slider h-2 w-full cursor-pointer appearance-none rounded-full"
             style={{
-              background: `linear-gradient(to right, #1b7a4a ${percent}%, #d8eadc ${percent}%)`,
+              background: `linear-gradient(to right, var(--color-primary) ${percent}%, var(--color-surface-2) ${percent}%)`,
             }}
             aria-valuemin={pack.min}
             aria-valuemax={pack.max}

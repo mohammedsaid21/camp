@@ -1,6 +1,7 @@
 import { Play } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useState } from "react";
+import { VideoThumb } from "./VideoThumb";
 
 type FieldClipProps = {
   src: string;
@@ -12,22 +13,26 @@ type FieldClipProps = {
 export function FieldClip({ src, poster, title, className }: FieldClipProps) {
   const [playing, setPlaying] = useState(false);
   const [failed, setFailed] = useState(false);
+  const [frameVisible, setFrameVisible] = useState(false);
 
   if (failed || !playing) {
     return (
       <button
         type="button"
         onClick={() => {
-          if (!failed) setPlaying(true);
+          if (!failed) {
+            setFrameVisible(false);
+            setPlaying(true);
+          }
         }}
-        className={cn("relative block aspect-[9/16] w-full overflow-hidden bg-charcoal", className)}
+        className={cn("relative block aspect-[9/16] w-full overflow-hidden bg-ivory", className)}
         aria-label={failed ? title : `تشغيل فيديو ${title}`}
       >
         <img src={poster} alt={title} className="h-full w-full object-cover" />
-        <div className="absolute inset-0 bg-charcoal/25" />
+        <div className="absolute inset-0 bg-charcoal/20" />
         <span className="absolute inset-0 flex items-center justify-center">
           {!failed && (
-            <span className="flex h-14 w-14 items-center justify-center rounded-full bg-accent text-accent-foreground shadow-[0_10px_24px_#f26b214d]">
+            <span className="flex size-14 items-center justify-center rounded-full bg-accent text-accent-foreground">
               <Play className="ms-0.5 h-6 w-6 fill-current" aria-hidden="true" />
             </span>
           )}
@@ -40,14 +45,18 @@ export function FieldClip({ src, poster, title, className }: FieldClipProps) {
   }
 
   return (
-    <div className={cn("relative aspect-[9/16] overflow-hidden bg-black", className)}>
+    <div className={cn("relative aspect-[9/16] overflow-hidden bg-ivory", className)}>
+      {!frameVisible && (
+        <img src={poster} alt="" className="absolute inset-0 h-full w-full object-cover" />
+      )}
       <video
-        className="field-clip-video h-full w-full object-contain"
+        className="field-clip-video relative z-[1] h-full w-full object-contain"
         controls
         playsInline
         autoPlay
-        preload="metadata"
+        preload="auto"
         poster={poster}
+        onPlaying={() => setFrameVisible(true)}
         onError={() => {
           setFailed(true);
           setPlaying(false);

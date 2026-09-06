@@ -4,6 +4,8 @@ import { Heart } from "lucide-react";
 import type { ImpactProject } from "@/lib/impact/types";
 import { Money } from "./Money";
 import { cn } from "@/lib/utils";
+import { DONATE_ORIGINS, originWhatsapp } from "@/components/athar/data";
+import { Button } from "@/components/athar/ui/Button";
 
 export function ContributePanel({ project }: { project: ImpactProject }) {
   const navigate = useNavigate();
@@ -16,8 +18,34 @@ export function ContributePanel({ project }: { project: ImpactProject }) {
     [amount, project.impactTiers, valid],
   );
 
+  if (project.contributionPresets.length === 0) {
+    return (
+      <section className="athar-card p-5 md:p-6">
+        <h2 className="text-lg font-semibold">باب المساهمة مفتوح</h2>
+        <p className="mt-2 type-small leading-relaxed text-muted-foreground">{project.summary}</p>
+        <div className="mt-5 grid gap-2">
+          {DONATE_ORIGINS.map((origin) => (
+            <Button
+              key={origin.id}
+              href={
+                project.donateMessage
+                  ? originWhatsapp(origin.id, project.donateMessage)
+                  : originWhatsapp(origin.id)
+              }
+              variant={origin.id === "outside" ? "donate" : "primary"}
+              className="w-full"
+            >
+              {origin.label}
+              <span className="text-xs font-medium opacity-80">{origin.code}</span>
+            </Button>
+          ))}
+        </div>
+      </section>
+    );
+  }
+
   return (
-    <section className="rounded-3xl bg-card p-5 shadow-[0_8px_28px_#1435280c] md:p-6">
+    <section className="athar-card p-5 md:p-6">
       <h2 className="text-lg font-semibold">اختر مساهمتك</h2>
       <div className="mt-4 flex flex-wrap gap-2">
         {project.contributionPresets.map((preset) => (
@@ -26,7 +54,7 @@ export function ContributePanel({ project }: { project: ImpactProject }) {
             type="button"
             onClick={() => setSelected(preset)}
             className={cn(
-              "min-h-11 rounded-full px-4 text-sm font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-leaf/50",
+              "min-h-11 rounded-full px-4 text-sm font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
               selected === preset ? "bg-accent text-accent-foreground" : "bg-ivory text-foreground",
             )}
           >

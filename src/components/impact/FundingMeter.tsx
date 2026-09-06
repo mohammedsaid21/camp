@@ -51,7 +51,7 @@ export function FundingMeter({
         className={`overflow-hidden rounded-full bg-ivory ${barHeight}`}
       >
         <motion.div
-          className="h-full rounded-full bg-primary"
+          className="h-full rounded-full bg-accent"
           initial={{ width: 0 }}
           animate={{ width: `${progress}%` }}
           transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}

@@ -10,7 +10,7 @@ import { fadeUp, viewport } from "./motion";
 
 export function DonorFaq() {
   return (
-    <section id="faq" className="scroll-mt-24 bg-background py-10 md:py-14">
+    <section id="faq" className="athar-section bg-background">
       <div className="mx-auto max-w-3xl px-5 md:px-10">
         <motion.div
           initial="hidden"
@@ -19,10 +19,8 @@ export function DonorFaq() {
           variants={fadeUp}
           className="mb-6 text-center"
         >
-          <p className="text-sm font-semibold text-primary">قبل ما تتبرّع</p>
-          <h2 className="mt-1 text-2xl font-semibold md:text-[1.75rem]">
-            سؤالين بيسألهن كل متبرّع
-          </h2>
+          <p className="type-kicker">قبل ما تتبرّع</p>
+          <h2 className="type-h2 mt-2">سؤالين بيسألهن كل متبرّع</h2>
         </motion.div>
 
         <motion.div
@@ -36,7 +34,7 @@ export function DonorFaq() {
               <AccordionItem
                 key={item.id}
                 value={item.id}
-                className="overflow-hidden rounded-2xl border border-border border-b-0 bg-card px-4 shadow-[0_10px_24px_#1435280c] md:px-5"
+                className="athar-card overflow-hidden border-b-0 px-4 md:px-5"
               >
                 <AccordionTrigger className="py-4 text-start text-base font-semibold hover:no-underline">
                   {item.q}

@@ -15,6 +15,7 @@ export const Route = createFileRoute("/videos")({
         property: "og:description",
         content: "أرشيف فيديو من التنفيذ الميداني في مخيم نسائم الرحمة.",
       },
+      { property: "og:image", content: "/athar/غزة.jpeg" },
     ],
   }),
   loader: () => getPublicVideos(),
@@ -26,7 +27,7 @@ function VideosPage() {
   return (
     <div className="min-h-screen bg-background text-foreground">
       <Navbar />
-      <main>
+      <main id="main">
         <VideosArchive uploads={uploads} />
       </main>
       <Footer />

@@ -13,10 +13,12 @@ import {
   StickyMobileCTA,
   VerseBand,
   GiveMeterProvider,
-  HADITH_UMMAH,
 } from "@/components/athar";
+import { JourneyRail } from "@/components/athar/JourneyRail";
+import { getPublicVideos } from "@/lib/vault/vault.functions";
 
 export const Route = createFileRoute("/")({
+  loader: () => getPublicVideos(),
   head: () => ({
     meta: [
       { title: "أثر — لكل تبرع أثر، ولكل أثر دليل" },
@@ -31,6 +33,7 @@ export const Route = createFileRoute("/")({
         content: "أرشيف توثيق للمشاريع الميدانية: الأرقام، الصور، والتقارير.",
       },
       { property: "og:type", content: "website" },
+      { property: "og:image", content: "/athar/غزة.jpeg" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
@@ -38,21 +41,22 @@ export const Route = createFileRoute("/")({
 });
 
 function Index() {
+  const uploads = Route.useLoaderData();
   return (
     <GiveMeterProvider>
       <div className="min-h-screen bg-background text-foreground">
         <Navbar />
-        <main>
+        <JourneyRail />
+        <main id="main">
           <Hero />
           <VerseBand
             ayah="﴿مَّثَلُ الَّذِينَ يُنفِقُونَ أَمْوَالَهُمْ فِي سَبِيلِ اللَّهِ كَمَثَلِ حَبَّةٍ أَنبَتَتْ سَبْعَ سَنَابِلَ فِي كُلِّ سُنبُلَةٍ مِّائَةُ حَبَّةٍ﴾"
             surah="سورة البقرة — ٢٦١"
           />
           <ImpactStats />
+          <TrustSection />
+          <DocumentedCampaign uploads={uploads} />
           <DonatePath />
-          {/* <VerseBand ayah={HADITH_UMMAH.text} surah={HADITH_UMMAH.source} tone="leaf" /> */}
-          {/* <TrustSection /> */}
-          <DocumentedCampaign />
           <DonorFaq />
           <VerseBand ayah="﴿لَن تَنَالُوا الْبِرَّ حَتَّىٰ تُنفِقُوا مِمَّا تُحِبُّونَ﴾" surah="سورة آل عمران — ٩٢" />
           <SadaqaSection />

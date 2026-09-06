@@ -9,7 +9,7 @@ function ImpactLayout() {
   return (
     <div className="min-h-screen bg-background text-foreground">
       <Navbar />
-      <main>
+      <main id="main">
         <Outlet />
       </main>
       <Footer />

@@ -17,17 +17,19 @@ export function ProjectCard({ project }: { project: ImpactProject }) {
   const funded = isFunded(project.amountRaised, project.targetAmount, project.status);
 
   return (
-    <motion.article variants={cardEnter} className="group overflow-hidden rounded-3xl bg-card shadow-[0_8px_28px_#1435280c]">
+    <motion.article variants={cardEnter} className="athar-card group">
       <Link
         to="/impact/$slug"
         params={{ slug: project.slug }}
-        className="block rounded-3xl transition-transform duration-300 hover:-translate-y-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-leaf/50 focus-visible:ring-offset-2"
+        className="block transition-transform duration-300 hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
       >
         <div className="relative aspect-[16/10] overflow-hidden bg-ivory">
           <img
             src={project.image}
             alt={project.imageAlt}
-            className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+            className={
+              "h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+            }
           />
           <span className="absolute top-3 start-3 rounded-full bg-background/92 px-3 py-1 text-xs font-medium backdrop-blur-sm">
             {project.kicker}

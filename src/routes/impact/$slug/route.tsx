@@ -17,6 +17,9 @@ export const Route = createFileRoute("/impact/$slug")({
         { name: "description", content: description },
         { property: "og:title", content: title },
         { property: "og:description", content: description },
+        ...(project
+          ? [{ property: "og:image", content: project.documentUrl ?? project.image }]
+          : []),
       ],
     };
   },
