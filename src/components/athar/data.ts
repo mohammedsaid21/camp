@@ -133,9 +133,9 @@ export const GIVE_PACKS = [
     defaultQty: 10,
     presets: [10, 20, 40, 80],
     kinds: [
-      { id: "bread", label: "خبز", desc: "ربطة للبيت", perUsd: 2 },
-      { id: "chicken", label: "جاجة", desc: "جاجة كاملة", perUsd: 20 },
-      { id: "meal", label: "طبخة", desc: "سفرة ساخنة", perUsd: 15 },
+      { id: "bread", label: "خبز", desc: "ربطة للبيت", perUsd: 2, perLabel: "ربطة" },
+      { id: "chicken", label: "جاجة", desc: "جاجة كاملة", perUsd: 20, perLabel: "جاجة" },
+      { id: "meal", label: "طبخة", desc: "سفرة ساخنة", perUsd: 15, perLabel: "طبخة" },
     ],
     estimate: "الأسعار تقدير حسب تكلفة التنفيذ الحالية، وبتتأكد وقت الشراء.",
     includes: ["المادة الغذائية", "تجهيزها", "توزيعها بالمخيم"],
@@ -153,7 +153,7 @@ export const GIVE_PACKS = [
     step: 10,
     defaultQty: 100,
     presets: [50, 100, 150, 200],
-    kinds: [{ id: "water", label: "ماء", desc: "سقيا من الشاحنة", perUsd: 2 }],
+    kinds: [{ id: "water", label: "ماء", desc: "سقيا من الشاحنة", perUsd: 2, perLabel: "شخص" }],
     estimate:
       "200$ تكلفة تقديرية لتوفير الماء لـ100 شخص حسب تكلفة التنفيذ الحالية. مو سعر ثابت لكل يوم.",
     includes: ["شراء الماء", "نقله للمخيم", "توزيعه"],

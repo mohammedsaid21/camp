@@ -85,7 +85,7 @@ function GiveMeterDialog({
   const Icon = kindIcon(kind.id);
   const percent = ((qty - pack.min) / (pack.max - pack.min)) * 100;
   const units = unitLabel(pack.unit, pack.unitPlural, qty);
-  const hint = `كل ${pack.unit} = ${perUsd} دولار. ${pack.defaultQty} ${unitLabel(pack.unit, pack.unitPlural, pack.defaultQty)} = ${pack.defaultQty * perUsd}$.`;
+  const hint = `كل ${kind.perLabel} = ${perUsd} دولار. ${pack.defaultQty} ${unitLabel(pack.unit, pack.unitPlural, pack.defaultQty)} = ${pack.defaultQty * perUsd}$.`;
 
   const sentence = useMemo(
     () => `${pack.action} ${qty} ${units} — ${kind.label} مقابل ${total}$`,
@@ -130,7 +130,7 @@ function GiveMeterDialog({
                     <span className="block text-sm font-semibold">{item.label}</span>
                     <span className="mt-0.5 block text-[11px]">{item.desc}</span>
                     <span className={`mt-1 block text-xs font-bold ${selected ? "text-accent" : ""}`}>
-                      {item.perUsd}$
+                      {item.perUsd}$ / {item.perLabel}
                     </span>
                   </button>
                 );

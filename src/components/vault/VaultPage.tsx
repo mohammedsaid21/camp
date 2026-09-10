@@ -4,7 +4,7 @@ import { Lock } from "lucide-react";
 import type { VaultClip } from "@/lib/vault/types";
 import { VAULT_MAX_BYTES, VAULT_MIME_TYPES, VAULT_SOURCE_MAX_BYTES } from "@/lib/vault/types";
 import { VIDEO_PROJECTS, videoProjectLabel, type VideoProjectId } from "@/lib/vault/projects";
-import { projectPoster } from "@/lib/vault/projectPoster";
+import { formatAddedAt } from "@/lib/dates";
 import { formatBytes } from "@/lib/vault/bytes";
 import { uploadWithProgress } from "@/lib/vault/uploadWithProgress";
 import {
@@ -330,12 +330,13 @@ export function VaultPage({ initial }: { initial: { unlocked: boolean; videos: V
           <ul className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {videos.map((clip) => (
               <li key={clip.id} className="overflow-hidden rounded-2xl bg-card shadow-[0_12px_32px_#1435280f]">
-                <VaultClipPlayer src={clip.videoUrl} poster={clip.posterUrl ?? projectPoster(clip.projectId)} title={clip.title} />
+                <VaultClipPlayer src={clip.videoUrl} poster={clip.posterUrl} title={clip.title} />
                 <div className="space-y-3 p-4">
                   <div className="flex items-start justify-between gap-3">
                     <div>
                       <p className="text-xs font-medium text-primary">{videoProjectLabel(clip.projectId)}</p>
                       <h2 className="text-lg font-semibold">{clip.title}</h2>
+                      <p className="mt-1 text-xs text-muted-foreground">أُضيف {formatAddedAt(clip.createdAt)}</p>
                     </div>
                     <button
                       type="button"

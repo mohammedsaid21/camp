@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Navbar, VideosArchive, Footer, StickyMobileCTA } from "@/components/athar";
+import { Navbar, VideosArchive, Footer, StickyMobileCTA, GiveMeterProvider } from "@/components/athar";
 import { getPublicVideos } from "@/lib/vault/vault.functions";
 
 export const Route = createFileRoute("/videos")({
@@ -25,13 +25,15 @@ export const Route = createFileRoute("/videos")({
 function VideosPage() {
   const uploads = Route.useLoaderData();
   return (
-    <div className="min-h-screen bg-background text-foreground">
-      <Navbar />
-      <main id="main">
-        <VideosArchive uploads={uploads} />
-      </main>
-      <Footer />
-      <StickyMobileCTA />
-    </div>
+    <GiveMeterProvider>
+      <div className="min-h-screen bg-background text-foreground">
+        <Navbar />
+        <main id="main">
+          <VideosArchive uploads={uploads} />
+        </main>
+        <Footer />
+        <StickyMobileCTA />
+      </div>
+    </GiveMeterProvider>
   );
 }
