@@ -1,4 +1,5 @@
 import { FOOTER_COLUMNS } from "./data";
+import { BrandLogo } from "./BrandLogo";
 
 export function Footer() {
   return (
@@ -6,9 +7,7 @@ export function Footer() {
       <div className="athar-wrap">
         <div className="flex flex-col gap-8 border-b border-border pb-6 md:flex-row md:items-start md:justify-between">
           <div>
-            <div className="font-display text-2xl leading-none">
-              أثر<span className="text-accent">.</span>
-            </div>
+            <BrandLogo variant="footer" />
             <p className="mt-2 max-w-[34ch] type-small text-muted-foreground">
               منصّة بتوثّق شغلنا بمخيم نسائم الرحمة.
             </p>

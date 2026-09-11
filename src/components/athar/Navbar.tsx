@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { NAV } from "./data";
 import { DonateButton } from "./DonateChoice";
+import { BrandLogo } from "./BrandLogo";
 import { cn } from "@/lib/utils";
 
 export function Navbar() {
@@ -23,9 +24,7 @@ export function Navbar() {
       )}
     >
       <div className="athar-wrap flex items-center justify-between gap-4">
-        <a href="/" className="font-display text-[1.65rem] leading-none tracking-tight text-white">
-          أثر<span className="text-accent">.</span>
-        </a>
+        <BrandLogo />
 
         <nav className="hidden items-center gap-8 md:flex" aria-label="التنقل الرئيسي">
           {NAV.map((item) => (

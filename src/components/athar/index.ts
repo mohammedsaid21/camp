@@ -1,4 +1,5 @@
 export { Navbar } from "./Navbar";
+export { BrandLogo } from "./BrandLogo";
 export { Hero } from "./Hero";
 export { ImpactStats } from "./ImpactStats";
 export { DonatePath } from "./DonatePath";
