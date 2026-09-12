@@ -81,6 +81,7 @@ export function DocumentedCampaign({ uploads }: { uploads: VaultClip[] }) {
                 className="grid scroll-mt-28 overflow-hidden rounded-lg border border-white/12 bg-white/[0.06] md:grid-cols-[minmax(0,17rem)_minmax(0,1fr)]"
               >
                 <ReportMedia
+                  key={clip?.id ?? report.id}
                   src={clip?.videoUrl}
                   poster={clip?.posterUrl ?? report.image}
                   title={report.title}
